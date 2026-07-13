@@ -313,6 +313,18 @@
             <rd-decoration-box-one />
           </div>
         </div>
+        <div
+          v-if="baseState.viewMode === 'desktop'"
+          ref="rdBackgroundEight"
+          class="rd-background-8"
+        >
+          <div class="rd-decoration-box-l rd-decoration-1">
+            <rd-decoration-box-six />
+          </div>
+          <div class="rd-decoration-box-l rd-decoration-2">
+            <rd-decoration-box-two />
+          </div>
+        </div>
       </div>
       <div ref="rdIntroduction" class="rd-introduction-section">
         <div class="rd-caption">
@@ -398,14 +410,18 @@
           </span>
         </div>
         <div class="rd-section-action">
-          <button class="rd-button rd-init">
+          <a
+            class="rd-button rd-init"
+            href="https://icoen.org/about/"
+            target="_blank"
+          >
             <span class="rd-button-background"></span>
             <span class="rd-button-overlay"></span>
             <span class="rd-button-border-container">
               <span class="rd-button-border"></span>
             </span>
             <label class="rd-button-label rd-caption-text">read more</label>
-          </button>
+          </a>
         </div>
         <div class="rd-section-decoration">
           <div class="rd-decoration-box-s">
@@ -471,7 +487,7 @@
         :style="
           baseState.viewMode === 'desktop'
             ? `width: calc((100vw - 9.25rem) * ${Math.ceil(
-                rundownContent.datas.length / 3
+                rundownContent.datas.length / 3,
               )} / 3 + 6rem)`
             : ''
         "
@@ -705,19 +721,49 @@
         <div class="rd-section-body">
           <div class="rd-footer-collab">
             <div class="rd-footer-placeholder">
-              <div
+              <span class="rd-text-wrapper rd-placeholder-text">
+                <span class="rd-text-container rd-text-container-down">
+                  <span class="rd-text">in collaboration with</span>
+                </span>
+              </span>
+              <!-- <div
                 class="rd-text-row rd-text-row-uppercase rd-placeholder-text"
               >
                 in collaboration with
+              </div> -->
+            </div>
+            <div class="rd-footer-pictures">
+              <div class="rd-footer-picture">
+                <span class="rd-image-wrapper">
+                  <span class="rd-image-container rd-image-container-down">
+                    <img src="/doaj.png" class="rd-image" />
+                  </span>
+                </span>
+              </div>
+              <div class="rd-footer-picture">
+                <span class="rd-image-wrapper">
+                  <span class="rd-image-container rd-image-container-down">
+                    <img src="/index.png" class="rd-image" />
+                  </span>
+                </span>
               </div>
             </div>
           </div>
           <div class="rd-footer-support">
             <div class="rd-footer-placeholder">
-              <div
-                class="rd-text-row rd-text-row-uppercase rd-placeholder-text"
-              >
-                supported by
+              <span class="rd-text-wrapper rd-placeholder-text">
+                <span class="rd-text-container rd-text-container-down">
+                  <span class="rd-text">supported by</span>
+                </span>
+              </span>
+            </div>
+            <div class="rd-footer-pictures">
+              <div class="rd-footer-picture">
+                <span class="rd-image-wrapper">
+                  <span class="rd-image-container rd-image-container-down">
+                    <img src="/uc.png" class="rd-image" />
+                  </span>
+                </span>
               </div>
             </div>
           </div>
@@ -780,7 +826,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ComputedRef } from "vue";
+  import type { ComputedRef } from "vue";
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import SmoothScrollbar from "smooth-scrollbar";
@@ -812,7 +858,7 @@
   const rem: ComputedRef<number> = computed((): number =>
     typeof getComputedStyle === "function"
       ? parseInt(getComputedStyle(document.body).fontSize)
-      : 0
+      : 0,
   );
 
   const aboutContent = {
@@ -871,7 +917,7 @@
       mode: "desktop" | "mobile",
       rdNav: Element,
       rdNavBtn: Element,
-      cb?: () => void
+      cb?: () => void,
     ): GSAPTimeline {
       const tl: GSAPTimeline = gsap.timeline({
         paused: true,
@@ -889,10 +935,10 @@
       });
 
       const rdWordContainer: Element[] = gsap.utils.toArray(
-        rdNav.querySelectorAll(".rd-word-container")
+        rdNav.querySelectorAll(".rd-word-container"),
       );
       const rdWord: Element[] = gsap.utils.toArray(
-        rdNav.querySelectorAll(".rd-word")
+        rdNav.querySelectorAll(".rd-word"),
       );
       const rdBarOne: Element = rdNavBtn.children[0];
       const rdBarTwo: Element = rdNavBtn.children[1];
@@ -905,7 +951,7 @@
             height: 0,
             duration: 0.25,
           },
-          "<0"
+          "<0",
         )
           .to(
             rdBarTwo,
@@ -914,7 +960,7 @@
               height: 0,
               duration: 0.25,
             },
-            "<0"
+            "<0",
           )
           .to(rdBarOne, {
             // y: 0,
@@ -936,7 +982,7 @@
             width: 0,
             duration: 0.25,
           },
-          "<0"
+          "<0",
         )
           .to(
             rdBarTwo,
@@ -945,7 +991,7 @@
               width: 0,
               duration: 0.25,
             },
-            "<0"
+            "<0",
           )
           .to(rdBarOne, {
             y: "-0.5rem",
@@ -964,7 +1010,7 @@
           opacity: 1,
           duration: 0.25,
         },
-        "<0"
+        "<0",
       )
         .to(rdWordContainer, {
           y: 0,
@@ -980,7 +1026,7 @@
             ease: "power2.out",
             stagger: 0.05,
           },
-          "<0"
+          "<0",
         );
       if (mode === "desktop") {
         tl.to(rdBarOne, {
@@ -996,7 +1042,7 @@
             height: "1rem",
             duration: 0.25,
           },
-          "<0"
+          "<0",
         );
       } else {
         tl.to(rdBarOne, {
@@ -1012,7 +1058,7 @@
             width: "1rem",
             duration: 0.25,
           },
-          "<0"
+          "<0",
         );
       }
 
@@ -1027,13 +1073,13 @@
       });
 
       const rdSvgContainer: Element[] = gsap.utils.toArray(
-        rdBackgroundOne.querySelectorAll(".rd-svg-container")
+        rdBackgroundOne.querySelectorAll(".rd-svg-container"),
       );
       const rdSvg: Element[] = gsap.utils.toArray(
-        rdBackgroundOne.querySelectorAll(".rd-svg")
+        rdBackgroundOne.querySelectorAll(".rd-svg"),
       );
       const rdDivider: Element = rdBackgroundOne.querySelector(
-        ".rd-background-divider"
+        ".rd-background-divider",
       );
 
       tl.to(rdSvgContainer, {
@@ -1050,7 +1096,7 @@
             ease: "power2.inOut",
             stagger: 0.25,
           },
-          "<0"
+          "<0",
         )
         .to(
           rdDivider,
@@ -1059,7 +1105,7 @@
             duration: 0.5,
             ease: "power2.inOut",
           },
-          "<0.25"
+          "<0.25",
         );
 
       return tl;
@@ -1068,13 +1114,13 @@
       const tl: GSAPTimeline = gsap.timeline({ paused: true });
 
       const rdTextContainer: Element[] = gsap.utils.toArray(
-        rdIntroduction.querySelectorAll(".rd-text-container")
+        rdIntroduction.querySelectorAll(".rd-text-container"),
       );
       const rdText: Element[] = gsap.utils.toArray(
-        rdIntroduction.querySelectorAll(".rd-text")
+        rdIntroduction.querySelectorAll(".rd-text"),
       );
       const rdTextDecoration: Element = rdIntroduction.querySelector(
-        ".rd-text-decoration"
+        ".rd-text-decoration",
       );
 
       tl.to(rdTextContainer, {
@@ -1091,7 +1137,7 @@
             ease: "power2.out",
             stagger: 0.125,
           },
-          "<0"
+          "<0",
         )
         .to(rdTextDecoration, {
           opacity: 1,
@@ -1112,18 +1158,18 @@
       });
 
       const rdTextContainer: Element[] = gsap.utils.toArray(
-        rdAbout.querySelectorAll(".rd-text-container")
+        rdAbout.querySelectorAll(".rd-text-container"),
       );
       const rdText: Element[] = gsap.utils.toArray(
-        rdAbout.querySelectorAll(".rd-text")
+        rdAbout.querySelectorAll(".rd-text"),
       );
       const rdWordContainer: Element[] = gsap.utils.toArray(
-        rdAbout.querySelectorAll(".rd-word-container")
+        rdAbout.querySelectorAll(".rd-word-container"),
       );
       const rdWord: Element[] = gsap.utils.toArray(
-        rdAbout.querySelectorAll(".rd-word")
+        rdAbout.querySelectorAll(".rd-word"),
       );
-      const rdButton: Element = rdAbout.querySelector("button.rd-button");
+      const rdButton: Element = rdAbout.querySelector("a.rd-button");
       const rdButtonBackground: Element = rdButton.children[0];
       const rdButtonOverlay: Element = rdButton.children[1];
       const rdButtonBorder: Element = rdButton.children[2].children[0];
@@ -1143,7 +1189,7 @@
             ease: "power2.out",
             stagger: 0.125,
           },
-          "<0"
+          "<0",
         )
         .to(
           rdWordContainer,
@@ -1153,7 +1199,7 @@
             ease: "power2.out",
             stagger: 0.005,
           },
-          "<0"
+          "<0",
         )
         .to(
           rdWord,
@@ -1163,7 +1209,7 @@
             ease: "power2.out",
             stagger: 0.005,
           },
-          "<0"
+          "<0",
         )
         .to(rdButtonBackground, {
           height: "100%",
@@ -1182,7 +1228,7 @@
             duration: 0.5,
             ease: "power2.out",
           },
-          "<0.25"
+          "<0.25",
         )
         .to(
           rdButtonBorder,
@@ -1191,7 +1237,7 @@
             duration: 0.25,
             ease: "power2.out",
           },
-          "<0.25"
+          "<0.25",
         )
         .to(rdButtonLabel, {
           opacity: 1,
@@ -1209,16 +1255,16 @@
       });
 
       const rdTextContainer: Element[] = gsap.utils.toArray(
-        rdRundown.querySelectorAll(".rd-text-container")
+        rdRundown.querySelectorAll(".rd-text-container"),
       );
       const rdText: Element[] = gsap.utils.toArray(
-        rdRundown.querySelectorAll(".rd-text")
+        rdRundown.querySelectorAll(".rd-text"),
       );
       const rdWordContainer: Element[] = gsap.utils.toArray(
-        rdRundown.querySelectorAll(".rd-word-container")
+        rdRundown.querySelectorAll(".rd-word-container"),
       );
       const rdWord: Element[] = gsap.utils.toArray(
-        rdRundown.querySelectorAll(".rd-word")
+        rdRundown.querySelectorAll(".rd-word"),
       );
 
       tl.to(rdTextContainer, {
@@ -1235,7 +1281,7 @@
             ease: "power2.out",
             stagger: 0.1,
           },
-          "<0"
+          "<0",
         )
         .to(
           rdWordContainer,
@@ -1245,7 +1291,7 @@
             ease: "power2.out",
             stagger: 0.01,
           },
-          "<0"
+          "<0",
         )
         .to(
           rdWord,
@@ -1255,14 +1301,14 @@
             ease: "power2.out",
             stagger: 0.01,
           },
-          "<0"
+          "<0",
         );
 
       return tl;
     },
     publicationInit(
       mode: "desktop" | "mobile",
-      rdPublication: Element
+      rdPublication: Element,
     ): GSAPTimeline {
       const tl: GSAPTimeline = gsap.timeline({
         scrollTrigger: {
@@ -1272,22 +1318,22 @@
       });
 
       const rdTextContainer: Element[] = gsap.utils.toArray(
-        rdPublication.querySelectorAll(".rd-text-container")
+        rdPublication.querySelectorAll(".rd-text-container"),
       );
       const rdText: Element[] = gsap.utils.toArray(
-        rdPublication.querySelectorAll(".rd-text")
+        rdPublication.querySelectorAll(".rd-text"),
       );
       const rdWordContainer: Element[] = gsap.utils.toArray(
-        rdPublication.querySelectorAll(".rd-word-container")
+        rdPublication.querySelectorAll(".rd-word-container"),
       );
       const rdWord: Element[] = gsap.utils.toArray(
-        rdPublication.querySelectorAll(".rd-word")
+        rdPublication.querySelectorAll(".rd-word"),
       );
       const rdImgContainer: Element[] = gsap.utils.toArray(
-        rdPublication.querySelectorAll(".rd-image-container")
+        rdPublication.querySelectorAll(".rd-image-container"),
       );
       const rdImg: Element[] = gsap.utils.toArray(
-        rdPublication.querySelectorAll(".rd-image")
+        rdPublication.querySelectorAll(".rd-image"),
       );
 
       tl.to(rdTextContainer, {
@@ -1304,7 +1350,7 @@
             ease: "power2.out",
             stagger: 0.125,
           },
-          "<0"
+          "<0",
         )
         .to(
           rdWordContainer,
@@ -1314,7 +1360,7 @@
             ease: "power2.out",
             stagger: 0.005,
           },
-          "<0"
+          "<0",
         )
         .to(
           rdWord,
@@ -1324,7 +1370,7 @@
             ease: "power2.out",
             stagger: 0.005,
           },
-          "<0"
+          "<0",
         )
         .to(rdImgContainer, {
           y: 0,
@@ -1340,7 +1386,63 @@
             ease: "power2.out",
             stagger: 0.125,
           },
-          "<0"
+          "<0",
+        );
+
+      return tl;
+    },
+    footerInit(mode: "desktop" | "mobile", rdFooter: Element): GSAPTimeline {
+      const tl: GSAPTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: rdFooter,
+          start: mode === "desktop" ? "left 80%" : "top 80%",
+        },
+      });
+
+      const rdTextContainer: Element[] = gsap.utils.toArray(
+        rdFooter.querySelectorAll(".rd-text-container"),
+      );
+      const rdText: Element[] = gsap.utils.toArray(
+        rdFooter.querySelectorAll(".rd-text"),
+      );
+      const rdImgContainer: Element[] = gsap.utils.toArray(
+        rdFooter.querySelectorAll(".rd-image-container"),
+      );
+      const rdImg: Element[] = gsap.utils.toArray(
+        rdFooter.querySelectorAll(".rd-image"),
+      );
+
+      tl.to(rdTextContainer, {
+        y: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        stagger: 0.125,
+      })
+        .to(
+          rdText,
+          {
+            y: 0,
+            duration: 0.5,
+            ease: "power2.out",
+            stagger: 0.125,
+          },
+          "<0",
+        )
+        .to(rdImgContainer, {
+          y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+          stagger: 0.125,
+        })
+        .to(
+          rdImg,
+          {
+            y: 0,
+            duration: 0.5,
+            ease: "power2.out",
+            stagger: 0.125,
+          },
+          "<0",
         );
 
       return tl;
@@ -1352,7 +1454,7 @@
 
     transformDelta(
       delta: { x: number; y: number },
-      fromEvent: { type: string }
+      fromEvent: { type: string },
     ): { x: number; y: number } {
       if (!/wheel/.test(fromEvent.type)) return delta;
 
@@ -1374,7 +1476,7 @@
       navAnim.value = animate.navHandler(
         baseState.viewMode,
         rdNav.value,
-        rdNavBtn.value
+        rdNavBtn.value,
       );
     if (state === "closed") {
       navState.value = "opened";
@@ -1408,7 +1510,7 @@
     () => baseState.viewMode,
     (val, oldVal) => {
       if (val && oldVal) location.reload();
-    }
+    },
   );
 
   onBeforeMount(async () => {
@@ -1523,19 +1625,20 @@
       }
 
       const introductionInitTl: GSAPTimeline = animate.introductionInit(
-        rdIntroduction.value
+        rdIntroduction.value,
       );
       const backgroundInitTl: GSAPTimeline = animate.backgroundInit(
         rdBackgroundOne.value,
         () => {
           animState.value = "mounted";
           introductionInitTl.play();
-        }
+        },
       );
 
       animate.aboutInit(baseState.viewMode, rdAbout.value);
       animate.rundownInit(baseState.viewMode, rdRundown.value);
       animate.publicationInit(baseState.viewMode, rdPublication.value);
+      animate.footerInit(baseState.viewMode, rdFooter.value);
 
       // let r = 56
       // let g = 197
@@ -1975,7 +2078,7 @@
         background: var(--font-light-color);
         padding: 0 3rem 0 1rem;
       }
-      button.rd-button {
+      a.rd-button {
         cursor: pointer;
         height: 2rem;
         padding: 0 3rem 0 1rem;
@@ -1984,6 +2087,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        text-decoration: none;
         span.rd-button-background {
           pointer-events: none;
           position: absolute;
@@ -2205,7 +2309,7 @@
         .rd-background-7 {
           position: absolute;
           top: 0;
-          right: 50vw;
+          left: 225vw;
           width: 100%;
           height: 100%;
           opacity: 0.75;
@@ -2223,6 +2327,23 @@
             position: absolute;
             top: 1.5rem;
             left: calc(75vw + 3rem);
+          }
+        }
+        .rd-background-8 {
+          position: absolute;
+          top: 0;
+          left: 325vw;
+          width: 100%;
+          height: 100%;
+          .rd-decoration-1 {
+            position: absolute;
+            top: 3rem;
+            left: 50vw;
+          }
+          .rd-decoration-2 {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 75vw;
           }
         }
       }
@@ -2437,6 +2558,23 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
+          }
+          .rd-footer-pictures {
+            position: relative;
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            .rd-footer-picture {
+              position: relative;
+              width: 12.5vw;
+              margin-right: 2rem;
+              filter: grayscale(1);
+              display: flex;
+              justify-content: flex-start;
+              align-items: flex-start;
+            }
           }
         }
         .rd-section-footer {
@@ -2782,6 +2920,12 @@
             .rd-footer-support {
               height: 10rem;
             }
+            .rd-footer-pictures {
+              .rd-footer-picture {
+                width: 20vw;
+                height: 2.5rem;
+              }
+            }
           }
           .rd-section-footer {
             position: relative;
@@ -2839,8 +2983,15 @@
 
   html,
   body {
-    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family:
+      "Poppins",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
     font-size: 24px;
     color: var(--font-color);
     word-spacing: 1px;
@@ -2917,7 +3068,7 @@
     font-size: 2rem;
     font-family: "Montserrat";
     font-weight: 700;
-    line-height: 1;
+    line-height: 1.15;
   }
   .rd-headline-3 {
     font-size: 1.25rem;

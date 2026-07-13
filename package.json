@@ -8,8 +8,8 @@
     "start": "NUXT_APP_BASE_URL=/icoen PORT=3006 node .output/server/index.mjs"
   },
   "devDependencies": {
-    "nuxt": "3.0.0",
-    "sass": "^1.54.0"
+    "nuxt": "^4.0.0",
+    "sass": "^1.57.0"
   },
   "dependencies": {
     "gsap": "^3.9.1",
