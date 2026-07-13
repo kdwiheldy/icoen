@@ -100,7 +100,11 @@
                 </span>
               </span>
             </div>
-            <div class="rd-navigation-footer-contact-value rd-headline-4">
+            <a
+              class="rd-navigation-footer-contact-value rd-headline-4"
+              href="mailto:icoen@ciputra.ac.id"
+              target="_blank"
+            >
               <span class="rd-word-wrapper">
                 <span class="rd-word-container rd-word-container-down">
                   <span class="rd-word">icoen@ciputra.ac.id</span>
@@ -109,7 +113,7 @@
               <span class="rd-hover-word-container">
                 <span class="rd-hover-word">icoen@ciputra.ac.id</span>
               </span>
-            </div>
+            </a>
           </div>
           <div class="rd-navigation-footer-contact">
             <div
@@ -156,13 +160,20 @@
                 </span>
               </span>
             </div>
-            <div class="rd-navigation-footer-credit-value rd-headline-4">
+            <a
+              class="rd-navigation-footer-credit-value rd-headline-4"
+              href="https://www.uc.ac.id/"
+              target="_blank"
+            >
               <span class="rd-word-wrapper">
                 <span class="rd-word-container rd-word-container-down">
                   <span class="rd-word">Universitas Ciputra</span>
                 </span>
               </span>
-            </div>
+              <span class="rd-hover-word-container">
+                <span class="rd-hover-word">Universitas Ciputra</span>
+              </span>
+            </a>
           </div>
           <div class="rd-navigation-footer-credit">
             <div
@@ -174,13 +185,20 @@
                 </span>
               </span>
             </div>
-            <div class="rd-navigation-footer-credit-value rd-headline-4">
+            <a
+              class="rd-navigation-footer-credit-value rd-headline-4"
+              href="https://kdwiheldy.com"
+              target="_blank"
+            >
               <span class="rd-word-wrapper">
                 <span class="rd-word-container rd-word-container-down">
-                  <span class="rd-word">Redian Grup</span>
+                  <span class="rd-word">kdwiheldy</span>
                 </span>
               </span>
-            </div>
+              <span class="rd-hover-word-container">
+                <span class="rd-hover-word">kdwiheldy</span>
+              </span>
+            </a>
           </div>
         </div>
       </div>
@@ -1957,6 +1975,10 @@
         display: flex;
         justify-content: flex-end;
         align-items: flex-end;
+        a {
+          text-decoration: none;
+          color: var(--font-color);
+        }
         .rd-navigation-footer-contacts,
         .rd-navigation-footer-credits {
           position: relative;
@@ -1979,6 +2001,7 @@
             }
             .rd-navigation-footer-contact-value,
             .rd-navigation-footer-credit-value {
+              cursor: pointer;
               position: relative;
               margin-top: 0.5rem;
               text-transform: uppercase;
