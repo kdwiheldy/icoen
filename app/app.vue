@@ -278,7 +278,7 @@
           </div>
         </div>
         <div
-          v-if="baseState.viewMode === 'desktop'"
+          v-if="viewMode === 'desktop'"
           ref="rdBackgroundFour"
           class="rd-background-4"
         >
@@ -290,7 +290,7 @@
           </div>
         </div>
         <div
-          v-if="baseState.viewMode === 'desktop'"
+          v-if="viewMode === 'desktop'"
           ref="rdBackgroundFive"
           class="rd-background-5"
         >
@@ -305,7 +305,7 @@
           </div>
         </div>
         <div
-          v-if="baseState.viewMode === 'desktop'"
+          v-if="viewMode === 'desktop'"
           ref="rdBackgroundSix"
           class="rd-background-6"
         >
@@ -317,7 +317,7 @@
           </div>
         </div>
         <div
-          v-if="baseState.viewMode === 'desktop'"
+          v-if="viewMode === 'desktop'"
           ref="rdBackgroundSeven"
           class="rd-background-7"
         >
@@ -332,7 +332,7 @@
           </div>
         </div>
         <div
-          v-if="baseState.viewMode === 'desktop'"
+          v-if="viewMode === 'desktop'"
           ref="rdBackgroundEight"
           class="rd-background-8"
         >
@@ -503,7 +503,7 @@
         ref="rdRundown"
         class="rd-section rd-rundown-section"
         :style="
-          baseState.viewMode === 'desktop'
+          viewMode === 'desktop'
             ? `width: calc((100vw - 9.25rem) * ${Math.ceil(
                 rundownContent.datas.length / 3,
               )} / 3 + 6rem)`
@@ -824,7 +824,7 @@
             <div class="rd-footer-copyright">
               <div class="rd-text-row rd-text-row-uppercase rd-headline-6">
                 {{
-                  baseState.viewMode === "desktop"
+                  viewMode === "desktop"
                     ? "© All rights reserved Universitas Ciputra 2022"
                     : "© All rights reserved UC 2022"
                 }}
@@ -849,9 +849,7 @@
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import SmoothScrollbar from "smooth-scrollbar";
 
-  import { baseStore } from "./store/base";
-
-  const baseState = baseStore.getState();
+  const { viewMode, setViewMode } = useBase();
 
   const rdNav = ref<HTMLDivElement>(null);
   const rdNavBtn = ref<HTMLDivElement>(null);
@@ -1467,6 +1465,7 @@
     },
   };
 
+  // plugin for horizontal scroll
   class HorizontalScrollPlugin extends SmoothScrollbar.ScrollbarPlugin {
     static pluginName = "horizontalScroll";
 
@@ -1485,14 +1484,14 @@
   }
 
   function resizeHandler(e: MediaQueryList | MediaQueryListEvent): void {
-    if (e.matches) baseStore.setViewMode("mobile");
-    else baseStore.setViewMode("desktop");
+    if (e.matches) setViewMode("mobile");
+    else setViewMode("desktop");
   }
 
   function navHandler(state: "closed" | "opened"): void {
     if (!navAnim.value)
       navAnim.value = animate.navHandler(
-        baseState.viewMode,
+        viewMode.value,
         rdNav.value,
         rdNavBtn.value,
       );
@@ -1506,7 +1505,7 @@
   }
 
   function navClick(name: string): void {
-    if (baseState.viewMode === "desktop") {
+    if (viewMode.value === "desktop") {
       // const { x }: DOMRect = rdBody.value.querySelector(`.rd-${name}-section`).getBoundingClientRect()
       // if (typeof x === 'number') {
       //   navHandler(navState.value)
@@ -1525,7 +1524,7 @@
   }
 
   watch(
-    () => baseState.viewMode,
+    viewMode,
     (val, oldVal) => {
       if (val && oldVal) location.reload();
     },
@@ -1548,7 +1547,7 @@
     resizeHandler(mediaQuery);
 
     setTimeout(() => {
-      if (baseState.viewMode === "desktop") {
+      if (viewMode.value === "desktop") {
         SmoothScrollbar.use(HorizontalScrollPlugin);
 
         bodyScrollbar.value = SmoothScrollbar.init(rdBody.value);
@@ -1653,10 +1652,10 @@
         },
       );
 
-      animate.aboutInit(baseState.viewMode, rdAbout.value);
-      animate.rundownInit(baseState.viewMode, rdRundown.value);
-      animate.publicationInit(baseState.viewMode, rdPublication.value);
-      animate.footerInit(baseState.viewMode, rdFooter.value);
+      animate.aboutInit(viewMode.value, rdAbout.value);
+      animate.rundownInit(viewMode.value, rdRundown.value);
+      animate.publicationInit(viewMode.value, rdPublication.value);
+      animate.footerInit(viewMode.value, rdFooter.value);
 
       // let r = 56
       // let g = 197
